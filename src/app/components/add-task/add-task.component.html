@@ -1,0 +1,28 @@
+<div class="col-md-12 mt-4" [ngBusy]="[busy, busy1, busy2]">
+    <form [formGroup]="taskForm" (submit)="submit()">
+        <div class="form-group">
+            <label for="message">Message</label>
+            <input type="text" class="form-control" id="message" formControlName="message" placeholder="Enter message">
+            <div class="text-danger" *ngIf="taskForm.invalid && (taskForm.dirty || taskForm.touched)">Please enter a message</div>
+        </div>
+        <div class="form-group">
+            <label for="dateTime">Due date</label>
+            <input type="datetime-local" class="form-control" id="dateTime" formControlName="due_date">
+        </div>
+        <div class="form-group">
+            <select class="custom-select" formControlName="priority">
+              <option value="">Select priority</option>
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>    
+        </div>
+        <div class="form-group">
+            <select class="custom-select" formControlName="assigned_to">
+              <option value="">Assign to</option>
+              <option value="{{user.id}}" *ngFor="let user of usersList">{{user.name}}</option>
+            </select>    
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">Submit</button>
+    </form>
+</div>

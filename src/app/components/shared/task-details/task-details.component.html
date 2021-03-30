@@ -1,0 +1,15 @@
+<div class="border card mb-3" [ngClass]="borderColor" *ngFor="let task of tasks; let i = index" cdkDrag [cdkDragData]="task">
+    <div class="card-header text-capitalize">
+        {{task.message}}
+        <div class="float-right">
+            <i class="fa fa-pencil" aria-hidden="true" (click)="editTask(task)"></i>
+            <i class="fa fa-trash-o ml-2" aria-hidden="true" (click)="deleteTask(task.id, 'high', i)"></i>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-text fs-small" *ngIf="task.assigned_name">{{task.assigned_name}}</h5>
+        <div class="card-text fs-small" *ngIf="task.due_date">Due date:
+            {{task.due_date}}
+        </div>
+    </div>
+</div>

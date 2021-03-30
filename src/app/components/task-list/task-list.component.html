@@ -1,0 +1,46 @@
+<div class="container" [ngBusy]="[busy, busy1, busy2]">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-sm btn-primary float-right mt-2" (click)="goToAddTaskPage()">Add task</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <input type="text" class="search form-control float-right" placeholder="Start typing to search ..."
+                (keyup)="search($event)">
+        </div>
+        <div class="col-md-3">
+            <input type="date" class="form-control" (change)="filterByDate($event)">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col card bg-secondary">
+            <div class="h-100" cdkDropList #highPriorityTasksList="cdkDropList" [cdkDropListData]="highPriorityTasks"
+                [cdkDropListConnectedTo]="[mediumPriorityTasksList, lowPriorityTasksList]"
+                (cdkDropListDropped)="dropHighPriorityTasksList($event)">
+                <h2 class="text-danger text-center mt-2">High priority</h2>
+                <app-task-details (deleteItem)="deleteTask($event)" (editItem)="editItem($event)"
+                    [tasks]="highPriorityTasks" [borderColor]="'border-danger'"></app-task-details>
+            </div>
+        </div>
+        <div class="col card mx-2 bg-secondary">
+            <div class="h-100" cdkDropList #mediumPriorityTasksList="cdkDropList"
+                [cdkDropListData]="mediumPriorityTasks"
+                [cdkDropListConnectedTo]="[highPriorityTasksList, lowPriorityTasksList]"
+                (cdkDropListDropped)="dropMediumPriorityTasksList($event)">
+                <h2 class="text-warning text-center mt-2">Medium priority</h2>
+                <app-task-details (deleteItem)="deleteTask($event)" (editItem)="editItem($event)"
+                    [tasks]="mediumPriorityTasks" [borderColor]="'border-warning'"></app-task-details>
+            </div>
+        </div>
+        <div class="col card bg-secondary">
+            <div class="h-100" cdkDropList #lowPriorityTasksList="cdkDropList" [cdkDropListData]="lowPriorityTasks"
+                [cdkDropListConnectedTo]="[mediumPriorityTasksList, highPriorityTasksList]"
+                (cdkDropListDropped)="dropLowPriorityTasksList($event)">
+                <h2 class="text-info text-center mt-2">Low priority</h2>
+                <app-task-details (deleteItem)="deleteTask($event)" (editItem)="editItem($event)"
+                    [tasks]="lowPriorityTasks" [borderColor]="'border-info'"></app-task-details>
+            </div>
+        </div>
+    </div>
+</div>
